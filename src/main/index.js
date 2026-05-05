@@ -1,7 +1,13 @@
+import 'dotenv/config';
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { connectMongoose } from './db/mongoose.js'
+
+app.whenReady().then(async () => {
+  await connectMongoose();
+});
 
 function createWindow() {
   // Create the browser window.
