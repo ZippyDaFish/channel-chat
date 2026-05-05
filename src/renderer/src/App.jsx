@@ -1,9 +1,11 @@
+import ChatInterface from "./components/ChatInterface"
+
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
 
   return (
     <>
-      <h1>Hello World</h1>
+      <ChatInterface />
     </>
   )
 }
