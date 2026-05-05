@@ -3,17 +3,16 @@ import ChatHistory from './ChatHistory'
 import ChatInput from './ChatInput'
 
 function ChatInterface() {
-    const [text, setText] = useState("");
+    const [messages, setMessages] = useState([]);
 
     const onSend = (text) => {
-        setText(text)
+        setMessages([...messages, text])
     }
 
     return (
         <div>
-            <ChatHistory />
+            <ChatHistory messages={messages}/>
             <ChatInput onSend={onSend}/>
-            <p>{text}</p>
         </div>
     )
 }
