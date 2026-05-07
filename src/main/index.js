@@ -4,9 +4,11 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { connectMongoose } from './db/mongoose.js'
+import { io } from 'socket.io-client'
 
 app.whenReady().then(async () => {
   await connectMongoose();
+  socket = io("http://localhost:3000");
 });
 
 function createWindow() {
