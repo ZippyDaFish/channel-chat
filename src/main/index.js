@@ -6,6 +6,8 @@ import icon from '../../resources/icon.png?asset'
 import { connectMongoose } from './db/mongoose.js'
 import { io } from 'socket.io-client'
 
+let socket;
+
 app.whenReady().then(async () => {
   await connectMongoose();
   socket = io("http://localhost:3000");
@@ -51,6 +53,10 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  ipcMain.on("socket:emit", (_, eventName, data) => {
+    socket.emit(eventName, data);
+  })
 
   createWindow()
 

@@ -6,7 +6,16 @@ function ChatInterface() {
     const [messages, setMessages] = useState([]);
 
     const onSend = (text) => {
+        // update local storage
         setMessages([...messages, text])
+
+        // emit event
+        if(text.trim()) {
+            window.electronAPI.emitSocketEvent(
+                "chat message",
+                text
+            );
+        }
     }
 
     return (

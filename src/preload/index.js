@@ -1,8 +1,14 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {}
+
+contextBridge.exposeInMainWorld("electronAPI", {
+  emitSocketEvent: (eventName, data) => {
+    ipcRenderer.send("socket:emit", eventName, data);
+  },
+});
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
